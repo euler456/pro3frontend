@@ -1,0 +1,86 @@
+
+@media screen and (max-width: 600px){
+td,th{
+ padding: 1px;
+ text-align: center;
+ }
+input{
+  margin-right: 80%;
+  margin-bottom: 10px;
+}
+ h2,h1{
+    color: #00bfa5;
+ }
+ h4{
+    color: chocolate;
+ }
+ p{
+   color: #00bfa5;
+   border: 1px;
+ }
+ img{
+   width: 100px;
+   height: 100px;
+   margin: 30px;
+ }
+#Signup{
+  color: aliceblue;
+  margin: 10px;
+  padding-bottom: 20px;
+}
+ form{
+  padding: 30px;
+  margin: 10px;
+  
+ }
+ #header li {
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+    width: 16%;
+  }
+  #header {
+    background-color: #ffeb3b;
+    padding: 0;
+  }
+  #header li a {
+    color: #212121;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-block;
+  }
+
+  .order{
+    margin: 0;
+    color: white;
+  }
+  .order1{
+    margin-bottom: 30px;
+  }
+  
+  .dark-mode {
+    background-color:black;
+    color: white;
+  }
+  .body{
+    background-color: gray;
+  }
+
+  .blackBg {
+    background-color: black;
+  }
+  .blackButton{
+    background-color: black;
+    color: white;
+  }
+  
+  .whiteButton{
+    background-color: white;
+    color: black;
+  }
+  #dark{
+    margin: 0px;
+ 
+  }
+}

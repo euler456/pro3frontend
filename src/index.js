@@ -32,7 +32,7 @@ class Main extends React.Component {
     this.setState({ color: newColor })
   }
   Logout=()=>{
-    fetch('http://localhost/proj3/src/api/api/api.php?action=logout', 
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=adminlogout', 
     {
         method: 'GET',
         credentials: 'include'
@@ -100,7 +100,7 @@ class Home extends React.Component {
   handleupdate(event){
     event.preventDefault();
     const data = new FormData(event.target);
-    fetch('http://localhost/proj3/src/api/api/api.php?action=updatefood', {
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=updatefood', {
       method: 'POST',
       credentials: 'include',
       body: data
@@ -122,7 +122,7 @@ class Home extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
-    fetch('http://localhost/proj3/src/api/api/api.php?action=addfood', {
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=addfood', {
       method: 'POST',
       credentials: 'include',
       body: data
@@ -146,7 +146,7 @@ class Home extends React.Component {
     const fd = new FormData();
     fd.append('F_ID', dd);
     console.log(fd);
-   fetch('http://localhost/proj3/src/api/api/api.php?action=deleteFOOD', 
+   fetch('https://ux2backend.herokuapp.com/api/api.php?action=deleteFOOD', 
    {
        method: 'POST',
        body: fd,
@@ -167,7 +167,7 @@ class Home extends React.Component {
    .catch(function(error) {console.log(error)});
      }
   componentDidMount() {
-    fetch('http://localhost/proj3/src/api/api/api.php?action=displayfood',
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=displayfood',
     {
             method: 'POST',
             credentials: 'include'
@@ -274,7 +274,7 @@ class Login extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
-    fetch('http://localhost/proj3/src/api/api/api.php?action=login', {
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=adminlogin', {
       method: 'POST',
       credentials: 'include',
       body: data
@@ -299,25 +299,6 @@ class Login extends React.Component {
       if(headers.status == 200) {
         console.log('login successful');
         this.setState({ redirect: true });
-        fetch('http://localhost/proj3/src/api/api/api.php?action=createorder', 
-        {
-            method: 'POST',
-            credentials: 'include'
-        })
-        .then(function(headers) {
-            if(headers.status == 400) {
-                console.log('can not order you are not loggedin');
-                return;
-            }
-         
-            if(headers.status == 201) {
-                console.log('going to order');
-                alert('start order');
-                return;
-            }
-           
-        })
-        .catch(function(error) {console.log(error)});
 
         // only need csrf
     }
@@ -395,7 +376,7 @@ class Sign extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
-    fetch('http://localhost/proj3/src/api/api/api.php?action=register', {
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=registeradmin', {
       method: 'POST',
       credentials: 'include',
       body: data
@@ -476,7 +457,7 @@ class Setting extends React.Component {
     event.preventDefault();
     const data = new FormData(event.target);
     this.props.history.push('/');
-    fetch('http://localhost/proj3/src/api/api/api.php?action=update', {
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=adminupdate', {
       method: 'POST',
       credentials: 'include',
       body: data
@@ -548,112 +529,7 @@ class password extends React.Component {
   }
 }
 
-class payment extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      confirmdata: [],
-      redirect: false
-    };
-  }
-  handleSubmit(event){
-    event.preventDefault();
-    const data = new FormData(event.target);
-    fetch('http://localhost/proj3/src/api/api/api.php?action=checkout', 
-    {
-        method: 'POST',
-        body: data,
-        credentials: 'include'
-    })
-    .then((headers)=> {
-        if(headers.status == 401) {
-            console.log('can not checkout');
-            return;
-        }
-        if(headers.status == 201) {
-          this.setState({ redirect: true });
-    
-            return;
-        }
-    })
-    .catch(function(error) {console.log(error)});
-    fetch('http://localhost/proj3/src/api/api/api.php?action=checkoutupdate', 
-    {
-        method: 'POST',
-        credentials: 'include'
-    })
-    .then((headers)=> {
-        if(headers.status == 401) {
-            console.log('can not checkout');
-            return;
-        }
-        if(headers.status == 201) {
-          console.log('check out successful');
-          this.setState({ redirect: true });
-          alert("Check out successful")
-            return;
-        }
-    })
-    .catch(function(error) {console.log(error)});
 
-  }
-  componentDidMount(){
-    fetch('http://localhost/proj3/src/api/api/api.php?action=confirmorderform',
-    {
-            method: 'GET',
-            credentials: 'include'
-        }
-        )   .then(response => response.json())
-        .then(data => this.setState({ confirmdata: data }));
-  }
-  render() {
-    const { confirmdata } = this.state; 
-    const { redirect } = this.state;
-    // const { redirectToReferrer } = this.state;
-     if (redirect) {
-       return <Redirect to='/' />
-     }
-    return (
-      <div>
-      <table>
-      <thead>
-          <th>Ordernumber</th>
-          <th>Ordertime</th>
-          <th>Totalprice</th>
-      </thead>
-      <tbody class="orderconfirmtbody" id="confirmorderform">
-      {confirmdata.map(confirmdatas =>(
-                    
-                    <tr>
-                    <td type="text" class="orderID">{confirmdatas.orderID}</td>
-                    <td type="datetime" class="ordertime">{confirmdatas.ordertime}</td>
-                    <td type="number" class="totalprice">{confirmdatas.totalprice}</td>
-                    </tr>
-              
-                     ) )}
-      </tbody>
-      
-  </table>
-  <form  onSubmit={this.handleSubmit}>
-        <h3>Payment</h3>
-        <label for="fname">Accepted Cards</label>
-        <label for="cname">Name</label>
-        <TextField type="text" id="cname" name="cname" value="gggggg"></TextField>
-        <label for="ccnum">Credit card number</label>
-        <TextField type="text" id="ccnum" name="ccnum" value="1111222233"></TextField>
-        <label for="expmonth">Exp Month</label>
-        <TextField type="text" id="expmonth" name="expmonth" value="April"></TextField>
-            <label for="expyear">Exp Year</label>
-            <TextField type="text" id="expyear" name="expyear" value="2021"></TextField>
-            <label for="cvv">CVV</label>
-            <TextField type="text" id="cvv" name="cvv"max="3" value="333"></TextField>
-        <TextField type="submit" name="submit" id="checkoutupdate"></TextField>
-  </form>
-  </div>
-    );
-  }
-}
 class User extends React.Component {
   constructor(props) {
     super(props);
@@ -673,7 +549,7 @@ class User extends React.Component {
   handleupdate(event){
     event.preventDefault();
     const data = new FormData(event.target);
-    fetch('http://localhost/proj3/src/api/api/api.php?action=updateuser', {
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=updateuser', {
       method: 'POST',
       credentials: 'include',
       body: data
@@ -695,7 +571,7 @@ class User extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
-    fetch('http://localhost/proj3/src/api/api/api.php?action=adduser', {
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=adduser', {
       method: 'POST',
       credentials: 'include',
       body: data
@@ -719,7 +595,7 @@ class User extends React.Component {
     const fd = new FormData();
     fd.append('CustomerID', dd);
     console.log(fd);
-   fetch('http://localhost/proj3/src/api/api/api.php?action=deleteuser', 
+   fetch('https://ux2backend.herokuapp.com/api/api.php?action=deleteuser', 
    {
        method: 'POST',
        body: fd,
@@ -739,7 +615,7 @@ class User extends React.Component {
    .catch(function(error) {console.log(error)});
      }
   componentDidMount() {
-    fetch('http://localhost/proj3/src/api/api/api.php?action=displayuser',
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=displayuser',
     {
             method: 'POST',
             credentials: 'include'

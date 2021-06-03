@@ -75,7 +75,6 @@ class Main extends React.Component {
            <Route path="/Sign" component={Sign}/>
            <Route path="/Setting" component={Setting}/>
            <Route path="/password" component={password}/>
-           <Route path="/payment" component={payment}/>
         </div>
         </div>
         

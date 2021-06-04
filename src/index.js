@@ -204,19 +204,19 @@ class Home extends React.Component {
           <h4>Add Food</h4>
         <TextField type="text" name="foodname" variant="filled"
         color="primary" label="foodname"
-        style={{ margin: 10 ,display: 'inline-block' }}  id="foodname" value="ddddd" required></TextField>
+        style={{ margin: 10 ,display: 'inline-block' }}  id="foodname"  required></TextField>
 
         <TextField type="number" name="price" variant="filled"
         color="primary" label="price"
-        style={{ margin: 10 ,display: 'inline-block' }} id="price" value="10" required></TextField>
+        style={{ margin: 10 ,display: 'inline-block' }} id="price"  required></TextField>
    
         <TextField type="text" name="description" variant="filled"
         color="primary" label="description"
-        style={{ margin: 10 ,display: 'inline-block' }} id="description" value="description" required></TextField>
+        style={{ margin: 10 ,display: 'inline-block' }} id="description"  required></TextField>
        
         <TextField type="text" name="options"variant="filled"
         color="primary" label="options"
-        style={{ margin: 10 ,display: 'inline-block' }}  id="options" value="ENABLE" required></TextField>
+        style={{ margin: 10 ,display: 'inline-block' }}  id="options" required></TextField>
      
         <TextField type="text" name="image" variant="filled"
         color="primary" label="image"
@@ -235,18 +235,18 @@ class Home extends React.Component {
 
             <TextField type="text" name="foodname" variant="filled"
         color="primary" label="foodname"
-        style={{ margin: 10 ,display: 'inline-block' }} id="foodname2" value="ffff" required></TextField>
+        style={{ margin: 10 ,display: 'inline-block' }} id="foodname2"  required></TextField>
       
             <TextField type="number" name="price" variant="filled"
         color="primary" label="price"
-        style={{ margin: 10 ,display: 'inline-block' }} id="price2" value="17" required></TextField>
+        style={{ margin: 10 ,display: 'inline-block' }} id="price2"  required></TextField>
          
             <TextField type="text" name="description" variant="filled"
         color="primary" label="description"
-        style={{ margin: 10 ,display: 'inline-block' }} id="description2" value="description" required></TextField>
+        style={{ margin: 10 ,display: 'inline-block' }} id="description2"  required></TextField>
             <TextField type="text" name="options" variant="filled"
         color="primary" label="options"
-        style={{ margin: 10 ,display: 'inline-block' }} id="options2" value="ENABLE" required></TextField>
+        style={{ margin: 10 ,display: 'inline-block' }} id="options2"  required></TextField>
       
             <TextField type="text" name="image" variant="filled"
         color="primary" label="image"
@@ -411,22 +411,22 @@ class Sign extends React.Component {
         color="primary"   label="username"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
             
-              <TextField type="email" name="email"  id="regemail" value="username@usee"  variant="filled"
+              <TextField type="email" name="email"  id="regemail"   variant="filled"
         color="primary"  label="email"
         style={{ margin: 10 ,display: 'inline-block' }}required></TextField>
  
-              <TextField type="text" name="phone"  id="regphone" value="11666661" variant="filled"
+              <TextField type="text" name="phone"  id="regphone"  variant="filled"
         color="primary" label="phone"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
             
-              <TextField type="number" name="postcode"  id="regpostcode" value="1010" variant="filled"
+              <TextField type="number" name="postcode"  id="regpostcode" variant="filled"
         color="primary" label="postcode"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
              
-              <TextField type="password" name="password" placeholder="password" id="regpassword" value="password"  variant="filled"
+              <TextField type="password" name="password" placeholder="password" id="regpassword"  variant="filled"
         color="primary" label="password"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
-              <TextField type="password" name="password2" placeholder="password again" id="regpassword2" value="password"  variant="filled"
+              <TextField type="password" name="password2" placeholder="password again" id="regpassword2"  variant="filled"
         color="primary" label="confirm password"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
               <Button type="submit" variant="contained" color="primary"
@@ -494,15 +494,15 @@ class Setting extends React.Component {
               <h4> username</h4>
               <TextField type="text" name="username"  id="upusername"  onChange={this.onChange.bind(this)} value={this.state.value} required></TextField>
               <h4> email</h4>
-              <TextField type="email" name="email"  id="upemail" value="username@username2" required></TextField>
+              <TextField type="email" name="email"  id="upemail" required></TextField>
               <h4> phone</h4>
-              <TextField type="number" name="phone"  id="upphone" value="1012" required></TextField>
+              <TextField type="number" name="phone"  id="upphone"  required></TextField>
               <h4> postcode</h4>
-              <TextField type="number" name="postcode"  id="uppostcode" value="10102" required></TextField>
+              <TextField type="number" name="postcode"  id="uppostcode" required></TextField>
               <h4> password</h4>
-              <TextField type="password" name="password" placeholder="password" id="uppassword" value="password2" required></TextField>
+              <TextField type="password" name="password" placeholder="password" id="uppassword" required></TextField>
               <h4>re-password</h4>
-              <TextField type="password" name="password2" placeholder="password again" id="uppassword2" value="password2" required></TextField>
+              <TextField type="password" name="password2" placeholder="password again" id="uppassword2"  required></TextField>
              
               <TextField type="submit" name="submit"></TextField>
        </form>
@@ -655,19 +655,19 @@ class User extends React.Component {
              color="primary"   label="username"
              style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
           
-              <TextField type="email" name="email"  id="regemail" value="username@usee" variant="filled"
+              <TextField type="email" name="email"  id="regemail"  variant="filled"
         color="primary"   label="email"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
            
-              <TextField type="text" name="phone"  id="regphone" value="11666661" variant="filled"
+              <TextField type="text" name="phone"  id="regphone" variant="filled"
         color="primary"   label="phone"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
             
-              <TextField type="number" name="postcode"  id="regpostcode" value="1010" variant="filled"
+              <TextField type="number" name="postcode"  id="regpostcode"  variant="filled"
         color="primary"   label="postcode"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
             
-              <TextField type="password" name="password" placeholder="password" id="regpassword" value="password" variant="filled"
+              <TextField type="password" name="password" placeholder="password" id="regpassword"  variant="filled"
         color="primary"   label="password"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
         
@@ -686,19 +686,19 @@ class User extends React.Component {
         color="primary"   label="username"
         style={{ margin: 10 ,display: 'inline-block' }}  required></TextField>
            
-              <TextField type="email" name="email"  id="regemail" value="username@usee" variant="filled"
+              <TextField type="email" name="email"  id="regemail" variant="filled"
         color="primary"   label="email"
         style={{ margin: 10 ,display: 'inline-block' }}  required></TextField>
            
-              <TextField type="text" name="phone"  id="regphone" value="11666661" variant="filled"
+              <TextField type="text" name="phone"  id="regphone" variant="filled"
         color="primary"   label="phone"
         style={{ margin: 10 ,display: 'inline-block' }}  required></TextField>
     
-              <TextField type="number" name="postcode"  id="regpostcode" value="1010" variant="filled"
+              <TextField type="number" name="postcode"  id="regpostcode"  variant="filled"
         color="primary"   label="postcode"
         style={{ margin: 10 ,display: 'inline-block' }}  required></TextField>
           
-              <TextField type="password" name="password" placeholder="password" id="regpassword" value="password" variant="filled"
+              <TextField type="password" name="password" placeholder="password" id="regpassword"  variant="filled"
         color="primary"   label="password"
         style={{ margin: 10 ,display: 'inline-block' }}  required></TextField>
               <TextField type="usertype" name="usertype"  id="usertype" variant="filled"

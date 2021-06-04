@@ -535,7 +535,7 @@ class User extends React.Component {
     this.fetchuserdelete = this.fetchuserdelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      hits: [],
+      hitss: [],
       redirect: false,
       order:[]
     };
@@ -620,10 +620,10 @@ class User extends React.Component {
             credentials: 'include'
         }
         )   .then(response => response.json())
-        .then(data => this.setState({ hits: data }));
+        .then(data => this.setState({ hitss: data }));
     }
   render(){
-    const { hits } = this.state; 
+    const { hitss } = this.state; 
           return (
             <body>
             <form>
@@ -636,7 +636,7 @@ class User extends React.Component {
                 <th>postcode</th>
             </thead>
             <tbody id="orderform">
-                  {hits.map(hit =>(
+                  {hitss.map(hit =>(
             <tr>
             <td class='fd-id'>{hit.CustomerID}</td>
             <td class='fd-name'>{hit.username}</td>

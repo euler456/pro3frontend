@@ -643,6 +643,7 @@ class User extends React.Component {
             <td class='fd-email'>{hit.email}</td>
             <td class='fd-phone'>{hit.phone}</td>
             <td class='fd-postcode'>{hit.postcode}</td>
+            <td class='fd-usertype'>{hit.usertype}</td>
             </tr> ) )}
             </tbody>
         </table>

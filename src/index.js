@@ -332,7 +332,7 @@ class Login extends React.Component {
       <Form onSubmit={this.handleSubmit}>
           <div className="form-group">
               <label htmlFor="username">username</label>
-              <Field name="username" id="username" pattern="[A-Za-z]"  type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
+              <Field name="username" id="username"   type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
               <ErrorMessage name="username" component="div" className="invalid-feedback" />
           </div>
           <div className="form-group">
@@ -408,7 +408,7 @@ class Sign extends React.Component {
          <h1>Sign Up</h1>
          <form  onSubmit={this.handleSubmit}>
              <TextField type="text" name="username" onChange={this.onChange.bind(this)} value={this.state.value} id="regusername" variant="filled"
-        color="primary"   label="username" pattern="[A-Za-z]" maxlength="30" 
+        color="primary"   label="username" maxlength="30" 
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
             
               <TextField type="email" name="email"  id="regemail"   variant="filled" 
@@ -492,7 +492,7 @@ class Setting extends React.Component {
       <form onSubmit={this.handleSubmit}>
               <TextField type="hidden" name="currentusername"  id="currentusername" required hidden></TextField>
               <h4> username</h4>
-              <TextField type="text" name="username"  id="upusername" pattern="[A-Za-z]" maxlength="30"  onChange={this.onChange.bind(this)} value={this.state.value} required></TextField>
+              <TextField type="text" name="username"  id="upusername" maxlength="30"  onChange={this.onChange.bind(this)} value={this.state.value} required></TextField>
               <h4> email</h4>
               <TextField type="email" name="email"  id="upemail" required></TextField>
               <h4> phone</h4>
@@ -650,7 +650,7 @@ class User extends React.Component {
         </form>
         <form  onSubmit={this.handleSubmit}>
         <h4> Add User</h4>
-             <TextField type="text" name="username" pattern="[A-Za-z]" maxlength="30"  onChange={this.onChange.bind(this)} value={this.state.value} id="regusername" 
+             <TextField type="text" name="username" maxlength="30"  onChange={this.onChange.bind(this)} value={this.state.value} id="regusername" 
              variant="filled"
              color="primary"   label="username"
              style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
@@ -671,7 +671,7 @@ class User extends React.Component {
         color="primary"   label="password"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
         
-              <TextField type="usertype" name="usertype"  id="usertype" variant="filled" pattern="[A-Za-z]" maxlength="30" 
+              <TextField type="usertype" name="usertype"  id="usertype" variant="filled"  maxlength="30" 
         color="primary"   label="usertype"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField> 
         <Button type="submit" variant="contained" color="primary">Add User</Button>
@@ -682,7 +682,7 @@ class User extends React.Component {
        <TextField type="number" name="CustomerID" variant="filled" min="0"
         color="primary"   label="CustomerID"
         style={{ margin: 10 ,display: 'inline-block' }}  required></TextField>
-             <TextField type="text" name="username" pattern="[A-Za-z]"  onChange={this.onChange.bind(this)} value={this.state.value} id="regusername" variant="filled"
+             <TextField type="text" name="username"  onChange={this.onChange.bind(this)} value={this.state.value} id="regusername" variant="filled"
         color="primary"   label="username"
         style={{ margin: 10 ,display: 'inline-block' }}  required></TextField>
            

@@ -347,7 +347,7 @@ class Home extends React.Component {
           </div>
           <div className="form-group">
               <label htmlFor="image">image</label>
-              <Field name="image" id="image" type="text"  className={'form-control' + (errors.image && touched.image ? ' is-invalid' : '')} />
+              <Field name="image" value="gruel" id="image" type="text"  className={'form-control' + (errors.image && touched.image ? ' is-invalid' : '')} />
               <ErrorMessage name="image" component="div" className="invalid-feedback" />
           </div>
           <div className="form-group">
@@ -422,7 +422,7 @@ class Home extends React.Component {
           </div>
           <div className="form-group">
               <label htmlFor="image">image</label>
-              <Field name="image" id="image2" type="text"  className={'form-control' + (errors.image && touched.image ? ' is-invalid' : '')} />
+              <Field value="gruel" name="image" id="image2" type="text"  className={'form-control' + (errors.image && touched.image ? ' is-invalid' : '')} />
               <ErrorMessage name="image" component="div" className="invalid-feedback" />
           </div>
           <div className="form-group">

@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import "./index.css";
 import TextField from '@material-ui/core/TextField';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Field,  ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
+import {   Form } from "react-bootstrap";
 //import Redirect from 'react-router'
 //import { fetchlogin, fetchregister,fetchaccountexists ,fetchisloggedin,fetchlogout } from './api/app/app.js';
 //"C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-web-security --disable-gpu --user-data-dir="C:\tmp"
@@ -83,7 +84,98 @@ class Main extends React.Component {
     );
   }
 }
+class Login extends React.Component {
+  constructor() {
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      redirect: false
+    };
+    
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=adminlogin', {
+      method: 'POST',
+      credentials: 'include',
+      body: data
+      
+    }) .then((headers)=> {
+      if(headers.status == 401) {
+          console.log('login failed');
+          localStorage.removeItem('csrf');
+          localStorage.removeItem('username');
+          localStorage.removeItem('phone');
+          localStorage.removeItem('email');
+          localStorage.removeItem('postcode');
+          localStorage.removeItem('CustomerID');
 
+          alert('Can not login')
+          return;
+      }
+      if(headers.status == 203) {
+          console.log('registration required');
+          // only need csrf
+      }
+      if(headers.status == 200) {
+        console.log('login successful');
+        this.setState({ redirect: true });
+
+        // only need csrf
+    }
+
+  
+  })
+  .catch(function(error) {
+      console.log(error)
+  });
+  }
+  render() {
+    const { redirect } = this.state;
+    // const { redirectToReferrer } = this.state;
+     if (redirect) {
+       return <Redirect to='/Home'/>
+     }
+    return (
+      <Formik
+      initialValues={{
+        username: '',
+        password: ''
+    }}
+      validationSchema={Yup.object().shape({
+        username: Yup.string()
+        .matches(/^[A-Za-z ]*$/, 'Please enter valid name')
+        .max(40)
+        .required('username is required'),
+          password: Yup.string()
+          .required('Password is required')
+  })}
+  render={({ errors, touched }) => (
+      <Form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+              <label htmlFor="username">username</label>
+              <Field name="username" id="username"   type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
+              <ErrorMessage name="username" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <Field name="password" id="password" type="password"  className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
+              <ErrorMessage name="password" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+          <Button type="submit" variant="contained" color="primary"
+        style={{ marginTop: 10,marginRight: 10,display: 'inline-block' }}>login</Button>
+            <Button type="submit" variant="contained" color="primary"
+        style={{ marginTop: 10,display: 'inline-block' }}>
+        <NavLink to="/Sign" id="Signup">Sign Up</NavLink> </Button>
+          </div>
+      </Form>
+  )}
+/>
+    );
+  }
+}
 class Home extends React.Component {
   
   constructor(props) {
@@ -200,163 +292,152 @@ class Home extends React.Component {
             </tbody>
         </table>
         </form>
-        <form  onSubmit={this.handleSubmit}>
-          <h4>Add Food</h4>
-        <TextField type="text" name="foodname" variant="filled"  pattern="[A-Za-z]" maxlength="30" 
-        color="primary" label="foodname"
-        style={{ margin: 10 ,display: 'inline-block' }}  id="foodname"  required></TextField>
-
-        <TextField type="number" name="price" variant="filled" min="0" max="50"
-        color="primary" label="price"
-        style={{ margin: 10 ,display: 'inline-block' }} id="price"  required></TextField>
+      
+       <Formik
+      initialValues={{
+        foodname: '',
+        price: '',
+        description:'',
+        options:'',
+        image:''
+    }}
    
-        <TextField type="text" name="description" variant="filled" 
-        color="primary" label="description"
-        style={{ margin: 10 ,display: 'inline-block' }} id="description"  required></TextField>
-       
-        <TextField type="text" name="options"variant="filled" pattern="[A-Za-z]" maxlength="20" 
-        color="primary" label="options"
-        style={{ margin: 10 ,display: 'inline-block' }}  id="options" required></TextField>
+      validationSchema={Yup.object().shape({
+        foodname: Yup.string()
+        .matches(/^[A-Za-z ]*$/, 'Please enter valid foodname')
+        .max(40)
+        .required('foodname is required'),
+        price: Yup.string()
+        .max(10)
+        .matches( /^(0*[1-9][0-9]*(\.[0-9]*)?|0*\.[0-9]*[1-9][0-9]*)$/, 'Please enter valid price')
+        .required('price is required'),
+        description: Yup.string()
+        .max(10)
+        .matches(/^[A-Za-z ]*$/, 'Please enter valid description')
+        .required('description is required'),
+        options: Yup.string()
+        .max(10)
+        .matches( /^[A-Za-z ]*$/, 'Please enter valid options')
+        .required('options is required')
+        ,  image: Yup.string()
+        .max(20)
+        .required('image is required')
+  })}
+  render={({ errors, touched }) => (
+      <Form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+              <label htmlFor="foodname">foodname</label>
+              <Field name="foodname" id="foodname"   type="text" className={'form-control' + (errors.foodname && touched.foodname ? ' is-invalid' : '')} />
+              <ErrorMessage name="foodname" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+              <label htmlFor="price">price</label>
+              <Field name="price" id="price" type="number" min="0" className={'form-control' + (errors.price && touched.price ? ' is-invalid' : '')} />
+              <ErrorMessage name="price" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+              <label htmlFor="description">description</label>
+              <Field name="description" id="description" type="text"  className={'form-control' + (errors.description && touched.description ? ' is-invalid' : '')} />
+              <ErrorMessage name="description" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+              <label htmlFor="options">options</label>
+              <Field name="options" id="options" type="text"  className={'form-control' + (errors.options && touched.options ? ' is-invalid' : '')} />
+              <ErrorMessage name="options" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+              <label htmlFor="image">image</label>
+              <Field name="image" id="image" type="text"  className={'form-control' + (errors.image && touched.image ? ' is-invalid' : '')} />
+              <ErrorMessage name="image" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+          <Button type="submit" variant="contained" color="primary" 
+        style={{ marginTop: 10,marginRight: 10,display: 'inline-block' }}>Add food</Button>
+          </div>
+      </Form>
+  )}
+/>
+
+<Formik
+      initialValues={{
+        F_ID:'',
+        foodname: '',
+        price: '',
+        description:'',
+        options:'',
+        image:''
+    }}
+   
+      validationSchema={Yup.object().shape({
+        foodname: Yup.string()
+        .matches(/^[A-Za-z ]*$/, 'Please enter valid foodname')
+        .max(40)
+        .required('foodname is required'),
+        F_ID: Yup.string()
+        .max(10)
+        .matches( /^(0*[1-9][0-9]*(\.[0-9]*)?|0*\.[0-9]*[1-9][0-9]*)$/, 'Please enter valid foodID')
+        .required('foodID is required'),
+        price: Yup.string()
+        .max(10)
+        .matches( /^(0*[1-9][0-9]*(\.[0-9]*)?|0*\.[0-9]*[1-9][0-9]*)$/, 'Please enter valid price')
+        .required('price is required'),
+        description: Yup.string()
+        .max(10)
+        .matches(/^[A-Za-z ]*$/, 'Please enter valid description')
+        .required('description is required'),
+        options: Yup.string()
+        .max(10)
+        .matches( /^[A-Za-z ]*$/, 'Please enter valid options')
+        .required('options is required')
+        ,  image: Yup.string()
+        .max(20)
+        .required('image is required')
+  })}
+  render={({ errors, touched }) => (
+      <Form onSubmit={this.handleupdate}>
+          <div className="form-group">
+              <label htmlFor="">F_ID</label>
+              <Field name="F_ID" id="F_ID2" type="number" min="0" className={'form-control' + (errors.F_ID && touched.F_ID ? ' is-invalid' : '')} />
+              <ErrorMessage name="F_ID" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+              <label htmlFor="foodname">foodname</label>
+              <Field name="foodname" id="foodname2"   type="text" className={'form-control' + (errors.foodname && touched.foodname ? ' is-invalid' : '')} />
+              <ErrorMessage name="foodname" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+              <label htmlFor="price">price</label>
+              <Field name="price" id="price2" type="number" min="0" className={'form-control' + (errors.price && touched.price ? ' is-invalid' : '')} />
+              <ErrorMessage name="price" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+              <label htmlFor="description">description</label>
+              <Field name="description" id="description2" type="text"  className={'form-control' + (errors.description && touched.description ? ' is-invalid' : '')} />
+              <ErrorMessage name="description" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+              <label htmlFor="options">options</label>
+              <Field name="options" id="options2" type="text"  className={'form-control' + (errors.options && touched.options ? ' is-invalid' : '')} />
+              <ErrorMessage name="options" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+              <label htmlFor="image">image</label>
+              <Field name="image" id="image2" type="text"  className={'form-control' + (errors.image && touched.image ? ' is-invalid' : '')} />
+              <ErrorMessage name="image" component="div" className="invalid-feedback" />
+          </div>
+          <div className="form-group">
+          <Button type="submit" variant="contained" color="primary" 
+        style={{ marginTop: 10,marginRight: 10,display: 'inline-block' }}>Update food</Button>
+          </div>
+      </Form>
+  )}
+/>
      
-        <TextField type="text" name="image" variant="filled"
-        color="primary" label="image"
-        style={{ margin: 10 ,display: 'inline-block' }} id="image" value="gruel" required></TextField>
-        <Button type="submit" variant="contained" color="primary">Add food</Button>
-       </form>
-
-
-       
-       <form onSubmit={this.handleupdate}>
-         <h4>Update food</h4>
-           
-            <TextField type="number" name="F_ID" variant="filled" min="0" 
-        color="primary" label="FoodID"
-        style={{ margin: 10 ,display: 'inline-block' }} id="F_ID2"   required></TextField>
-
-            <TextField type="text" name="foodname" variant="filled" pattern="[A-Za-z]" maxlength="30" 
-        color="primary" label="foodname"
-        style={{ margin: 10 ,display: 'inline-block' }} id="foodname2"  required></TextField>
-      
-            <TextField type="number" name="price" variant="filled" min="0" max="50" 
-        color="primary" label="price"
-        style={{ margin: 10 ,display: 'inline-block' }} id="price2"  required></TextField>
-         
-            <TextField type="text" name="description" variant="filled" 
-        color="primary" label="description"
-        style={{ margin: 10 ,display: 'inline-block' }} id="description2"  required></TextField>
-            <TextField type="text" name="options" variant="filled"
-        color="primary" label="options" pattern="[A-Za-z]" maxlength="20" 
-        style={{ margin: 10 ,display: 'inline-block' }} id="options2"  required></TextField>
-      
-            <TextField type="text" name="image" variant="filled"
-        color="primary" label="image"
-        style={{ margin: 10 ,display: 'inline-block' }} id="image2" value="gruel" required></TextField>
-            <Button type="submit" variant="contained" color="primary">update</Button>
-        </form>
         </body>
           );
   }
   
 }
-
-
-
-class Login extends React.Component {
-  constructor() {
-    super();
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      redirect: false
-    };
-    
-  }
-  handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    fetch('https://ux2backend.herokuapp.com/api/api.php?action=adminlogin', {
-      method: 'POST',
-      credentials: 'include',
-      body: data
-      
-    }) .then((headers)=> {
-      if(headers.status == 401) {
-          console.log('login failed');
-          localStorage.removeItem('csrf');
-          localStorage.removeItem('username');
-          localStorage.removeItem('phone');
-          localStorage.removeItem('email');
-          localStorage.removeItem('postcode');
-          localStorage.removeItem('CustomerID');
-
-          alert('Can not login')
-          return;
-      }
-      if(headers.status == 203) {
-          console.log('registration required');
-          // only need csrf
-      }
-      if(headers.status == 200) {
-        console.log('login successful');
-        this.setState({ redirect: true });
-
-        // only need csrf
-    }
-
-  
-  })
-  .catch(function(error) {
-      console.log(error)
-  });
-  }
-  render() {
-    const { redirect } = this.state;
-    // const { redirectToReferrer } = this.state;
-     if (redirect) {
-       return <Redirect to='/Home'/>
-     }
-    return (
-      <Formik
-      initialValues={{
-        username: '',
-        password: ''
-    }}
-      validationSchema={Yup.object().shape({
-        username: Yup.string()
-        .matches(/^[A-Za-z ]*$/, 'Please enter valid name')
-        .max(40)
-        .required('username is required'),
-          password: Yup.string()
-          .required('Password is required')
-  })}
-  render={({ errors, touched }) => (
-      <Form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-              <label htmlFor="username">username</label>
-              <Field name="username" id="username"   type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
-              <ErrorMessage name="username" component="div" className="invalid-feedback" />
-          </div>
-          <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Field name="password" id="password" type="password"  className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
-              <ErrorMessage name="password" component="div" className="invalid-feedback" />
-          </div>
-          <div className="form-group">
-          <Button type="submit" variant="contained" color="primary"
-        style={{ marginTop: 10,marginRight: 10,display: 'inline-block' }}>login</Button>
-            <Button type="submit" variant="contained" color="primary"
-        style={{ marginTop: 10,display: 'inline-block' }}>
-        <NavLink to="/Sign" id="Signup">Sign Up</NavLink> </Button>
-          </div>
-      </Form>
-  )}
-/>
-    
-
-    );
-  }
-}
-
-
 class Sign extends React.Component {
   constructor() {
     super();
@@ -410,7 +491,6 @@ class Sign extends React.Component {
              <TextField type="text" name="username" onChange={this.onChange.bind(this)} value={this.state.value} id="regusername" variant="filled"
         color="primary"   label="username" maxlength="30" 
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
-            
               <TextField type="email" name="email"  id="regemail"   variant="filled" 
         color="primary"  label="email"
         style={{ margin: 10 ,display: 'inline-block' }}required></TextField>
@@ -422,7 +502,6 @@ class Sign extends React.Component {
               <TextField type="number" name="postcode"  id="regpostcode" variant="filled" min="0" max="9999"
         color="primary" label="postcode"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
-             
               <TextField type="password" name="password" placeholder="password" id="regpassword"  variant="filled"
         color="primary" label="password"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
@@ -653,13 +732,13 @@ class User extends React.Component {
              <TextField type="text" name="username" maxlength="30"  onChange={this.onChange.bind(this)} value={this.state.value} id="regusername" 
              variant="filled"
              color="primary"   label="username"
-             style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
+             style={{ margin: 10 ,display: 'inline-block' }}  required></TextField>
           
               <TextField type="email" name="email"  id="regemail"  variant="filled"
         color="primary"   label="email"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
            
-              <TextField type="text" name="phone"  id="regphone" min="4000000000" max="4999999999"variant="filled"
+              <TextField type="text" name="phone"  id="regphone" min="4000000000" max="4999999999" variant="filled"
         color="primary"   label="phone"
         style={{ margin: 10 ,display: 'inline-block' }} required></TextField>
             

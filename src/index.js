@@ -274,8 +274,8 @@ class Home extends React.Component {
           }
        
           if(headers.status == 203) {
-              console.log('delete succussful');
-              window.location.reload();
+              console.log('login succussful');
+              this.setState({ islogin: true });
               return;
           }
       })

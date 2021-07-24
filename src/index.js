@@ -185,6 +185,7 @@ class Home extends React.Component {
     this.state = {
       hits: [],
       redirect: false,
+      isnotlogin:false,
       order:[]
     };
   }
@@ -258,6 +259,27 @@ class Home extends React.Component {
    .catch(function(error) {console.log(error)});
      }
   componentDidMount() {
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=isloggedin',
+    {
+            method: 'POST',
+            credentials: 'include'
+        }
+        )    
+        .then(function(headers) {
+          if(headers.status == 403) {
+              console.log('can not login');
+              alert("plz login");
+              this.setState({ isnotlogin: true });
+              return;
+          }
+       
+          if(headers.status == 203) {
+              console.log('delete succussful');
+              window.location.reload();
+              return;
+          }
+      })
+      .catch(function(error) {console.log(error)});
     fetch('https://ux2backend.herokuapp.com/api/api.php?action=displayfood',
     {
             method: 'POST',
@@ -268,6 +290,10 @@ class Home extends React.Component {
     }
   render(){
     const { hits } = this.state; 
+    const { isnotlogin } = this.state; 
+    if(isnotlogin){
+      return <Redirect to='/'/>
+     }
           return (
             <body>
             <form>

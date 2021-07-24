@@ -550,7 +550,8 @@ class Setting extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       value: '',
-      redirect: false
+      redirect: false,
+      islogin:false
     };
   }
   onChange(evt) {
@@ -585,12 +586,36 @@ class Setting extends React.Component {
   })
   .catch(function(error) {console.log(error)});
   }
+  componentDidMount() {
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=isloggedin',
+    {
+            method: 'POST',
+            credentials: 'include'
+        }
+        )    
+        .then(function(headers) {
+          if(headers.status == 403) {
+              console.log('can not login');
+              alert("plz login");
+              this.setState({ islogin: false });
+              return;
+          }
+       
+          if(headers.status == 203) {
+              console.log('delete succussful');
+              window.location.reload();
+              return;
+          }
+      })
+      .catch(function(error) {console.log(error)});}
   render() {
     const { redirect } = this.state;
+    const { islogin } = this.state; 
    // const { redirectToReferrer } = this.state;
     if (redirect) {
       return <Redirect to='/' />
     }
+    if(islogin){
     return (
       <div >
          <h1>Edit My profile</h1>
@@ -614,7 +639,10 @@ class Setting extends React.Component {
               <TextField type="submit" name="submit"></TextField>
        </form>
       </div>
-    );
+    )}
+    else{
+      return <Redirect to='/'/>
+    };
   }
 }
 class password extends React.Component {

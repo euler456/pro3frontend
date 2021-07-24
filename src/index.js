@@ -294,6 +294,7 @@ class Home extends React.Component {
     if(isnotlogin){
       return <Redirect to='/'/>
      }
+     else{
           return (
             <body>
             <form>
@@ -460,7 +461,7 @@ class Home extends React.Component {
 />
      
         </body>
-          );
+          )};
   }
   
 }

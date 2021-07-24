@@ -644,6 +644,7 @@ class User extends React.Component {
     this.state = {
       hitss: [],
       redirect: false,
+      islogin:false,
       order:[]
     };
   }
@@ -721,6 +722,27 @@ class User extends React.Component {
    .catch(function(error) {console.log(error)});
      }
   componentDidMount() {
+    fetch('https://ux2backend.herokuapp.com/api/api.php?action=isloggedin',
+    {
+            method: 'POST',
+            credentials: 'include'
+        }
+        )    
+        .then(function(headers) {
+          if(headers.status == 403) {
+              console.log('can not login');
+              alert("plz login");
+              this.setState({ islogin: false });
+              return;
+          }
+       
+          if(headers.status == 203) {
+              console.log('delete succussful');
+              window.location.reload();
+              return;
+          }
+      })
+      .catch(function(error) {console.log(error)});
     fetch('https://ux2backend.herokuapp.com/api/api.php?action=displayuser',
     {
             method: 'POST',
@@ -731,6 +753,8 @@ class User extends React.Component {
     }
   render(){
     const { hitss } = this.state; 
+    const { islogin } = this.state; 
+    if(islogin){
           return (
             <body>
             <form>
@@ -814,7 +838,10 @@ class User extends React.Component {
         <Button type="submit" variant="contained" color="primary">Update User</Button>
         </form>
         </body>
-          );
+          )}
+          else{
+            return <Redirect to='/'/>
+          };
   }
 }
 ReactDOM.render(

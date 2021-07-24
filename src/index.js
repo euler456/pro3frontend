@@ -185,7 +185,7 @@ class Home extends React.Component {
     this.state = {
       hits: [],
       redirect: false,
-      isnotlogin:false,
+      islogin:false,
       order:[]
     };
   }
@@ -269,7 +269,7 @@ class Home extends React.Component {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
-              this.setState({ isnotlogin: true });
+              this.setState({ islogin: false });
               return;
           }
        
@@ -290,11 +290,8 @@ class Home extends React.Component {
     }
   render(){
     const { hits } = this.state; 
-    const { isnotlogin } = this.state; 
-    if(isnotlogin){
-      return <Redirect to='/'/>
-     }
-     else{
+    const { islogin } = this.state; 
+    if(islogin){
           return (
             <body>
             <form>
@@ -461,7 +458,11 @@ class Home extends React.Component {
 />
      
         </body>
-          )};
+          )}
+    else{
+      return <Redirect to='/'/>
+    }
+          ;
   }
   
 }

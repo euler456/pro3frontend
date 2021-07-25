@@ -185,7 +185,7 @@ class Home extends React.Component {
     this.state = {
       hits: [],
       redirect: false,
-      isnotlogin:false,
+      isnotlogin:true,
       order:[]
     };
   }

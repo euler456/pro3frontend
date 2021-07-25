@@ -185,7 +185,7 @@ class Home extends React.Component {
     this.state = {
       hits: [],
       redirect: false,
-      islogin:false,
+      isnotlogin:false,
       order:[]
     };
   }
@@ -269,13 +269,13 @@ class Home extends React.Component {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
-              this.setState({ islogin: false });
+              this.setState({ isnotlogin: true });
               return;
           }
        
           if(headers.status == 203) {
-              console.log('login succussful');
-              this.setState({ islogin: true });
+              console.log('isnotlogin');
+              this.setState({ isnotlogin: false });
               return;
           }
       })
@@ -290,8 +290,10 @@ class Home extends React.Component {
     }
   render(){
     const { hits } = this.state; 
-    const { islogin } = this.state; 
-    if(islogin){
+    const { isnotlogin } = this.state; 
+    if(isnotlogin){
+      return <Redirect to='/'/>
+    }
           return (
             <body>
             <form>
@@ -458,10 +460,7 @@ class Home extends React.Component {
 />
      
         </body>
-          )}
-    else{
-      return <Redirect to='/'/>
-    }
+          )
           ;
   }
   
@@ -551,7 +550,7 @@ class Setting extends React.Component {
     this.state = {
       value: '',
       redirect: false,
-      islogin:false
+      isnotlogin:false
     };
   }
   onChange(evt) {
@@ -597,25 +596,25 @@ class Setting extends React.Component {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
-              this.setState({ islogin: false });
+              this.setState({ isnotlogin: false });
               return;
           }
        
           if(headers.status == 203) {
-              console.log('islogin');
-              this.setState({ islogin: true });
+              console.log('isnotlogin');
+              this.setState({ isnotlogin: true });
               return;
           }
       })
       .catch(function(error) {console.log(error)});}
   render() {
     const { redirect } = this.state;
-    const { islogin } = this.state; 
+    const { isnotlogin } = this.state; 
    // const { redirectToReferrer } = this.state;
     if (redirect) {
       return <Redirect to='/' />
     }
-    if(islogin){
+    if(isnotlogin){
     return (
       <div >
          <h1>Edit My profile</h1>
@@ -672,7 +671,7 @@ class User extends React.Component {
     this.state = {
       hitss: [],
       redirect: false,
-      islogin:false,
+      isnotlogin:false,
       order:[]
     };
   }
@@ -742,7 +741,7 @@ class User extends React.Component {
            return;
        }
        if(headers.status == 201) {
-           console.log('islogin');
+           console.log('isnotlogin');
            window.location.reload();
            return;
        }
@@ -760,13 +759,13 @@ class User extends React.Component {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
-              this.setState({ islogin: false });
+              this.setState({ isnotlogin: false });
               return;
           }
        
           if(headers.status == 203) {
-              console.log('islogin');
-              this.setState({ islogin: true });
+              console.log('isnotlogin');
+              this.setState({ isnotlogin: true });
               return;
           }
       })
@@ -781,8 +780,8 @@ class User extends React.Component {
     }
   render(){
     const { hitss } = this.state; 
-    const { islogin } = this.state; 
-    if(islogin){
+    const { isnotlogin } = this.state; 
+    if(isnotlogin){
           return (
             <body>
             <form>

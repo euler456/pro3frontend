@@ -291,9 +291,8 @@ class Home extends React.Component {
   render(){
     const { hits } = this.state; 
     const { isnotlogin } = this.state; 
-    if(isnotlogin){
-      return <Redirect to='/'/>
-    }
+  
+    if(!isnotlogin){
           return (
             <body>
             <form>
@@ -460,8 +459,10 @@ class Home extends React.Component {
 />
      
         </body>
-          )
+          )}
+          return <Redirect to='/'/>
           ;
+          
   }
   
 }

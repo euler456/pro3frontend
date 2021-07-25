@@ -602,7 +602,7 @@ class Setting extends React.Component {
           }
        
           if(headers.status == 203) {
-              console.log('delete succussful');
+              console.log('islogin');
               this.setState({ islogin: true });
               return;
           }
@@ -742,7 +742,7 @@ class User extends React.Component {
            return;
        }
        if(headers.status == 201) {
-           console.log('delete succussful');
+           console.log('islogin');
            window.location.reload();
            return;
        }
@@ -765,7 +765,7 @@ class User extends React.Component {
           }
        
           if(headers.status == 203) {
-              console.log('delete succussful');
+              console.log('islogin');
               this.setState({ islogin: true });
               return;
           }

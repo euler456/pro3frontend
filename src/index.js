@@ -182,7 +182,6 @@ class Home extends React.Component {
     super(props);
     this.fetchfooddelete = this.fetchfooddelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.componentDidMount= this.componentDidMount.bind(this);
     this.state = {
       hits: [],
       redirect: false,
@@ -259,7 +258,7 @@ class Home extends React.Component {
    })
    .catch(function(error) {console.log(error)});
      }
-  componentDidMount() {
+  componentDidMount(islogin) {
     fetch('https://ux2backend.herokuapp.com/api/api.php?action=isloggedin',
     {
             method: 'POST',
@@ -549,8 +548,6 @@ class Setting extends React.Component {
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.componentDidMount= this.componentDidMount.bind(this);
-
     this.state = {
       value: '',
       redirect: false,
@@ -589,7 +586,7 @@ class Setting extends React.Component {
   })
   .catch(function(error) {console.log(error)});
   }
-  componentDidMount() {
+  componentDidMount(islogin) {
     fetch('https://ux2backend.herokuapp.com/api/api.php?action=isloggedin',
     {
             method: 'POST',
@@ -672,8 +669,6 @@ class User extends React.Component {
     super(props);
     this.fetchuserdelete = this.fetchuserdelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.componentDidMount= this.componentDidMount.bind(this);
-
     this.state = {
       hitss: [],
       redirect: false,
@@ -754,7 +749,7 @@ class User extends React.Component {
    })
    .catch(function(error) {console.log(error)});
      }
-  componentDidMount() {
+  componentDidMount(islogin) {
     fetch('https://ux2backend.herokuapp.com/api/api.php?action=isloggedin',
     {
             method: 'POST',

@@ -269,13 +269,13 @@ class Home extends React.Component {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
-              this.setState({ islogin: false });
+              self.setState({ islogin: false });
               return;
           }
        
           if(headers.status == 203) {
               console.log('login succussful');
-              this.setState({ islogin: true });
+              self.setState({ islogin: true });
               return;
           }
       })
@@ -597,13 +597,13 @@ class Setting extends React.Component {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
-              this.setState({ islogin: false });
+              self.setState({ islogin: false });
               return;
           }
        
           if(headers.status == 203) {
               console.log('delete succussful');
-              window.location.reload();
+              self.setState({ islogin: true });
               return;
           }
       })
@@ -760,13 +760,13 @@ class User extends React.Component {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
-              this.setState({ islogin: false });
+              self.setState({ islogin: false });
               return;
           }
        
           if(headers.status == 203) {
               console.log('delete succussful');
-              window.location.reload();
+              self.setState({ islogin: true });
               return;
           }
       })

@@ -182,6 +182,7 @@ class Home extends React.Component {
     super(props);
     this.fetchfooddelete = this.fetchfooddelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.componentDidMount= this.componentDidMount.bind(this);
     this.state = {
       hits: [],
       redirect: false,
@@ -269,13 +270,13 @@ class Home extends React.Component {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
-              self.setState({ islogin: false });
+              this.setState({ islogin: false });
               return;
           }
        
           if(headers.status == 203) {
               console.log('login succussful');
-              self.setState({ islogin: true });
+              this.setState({ islogin: true });
               return;
           }
       })
@@ -548,6 +549,8 @@ class Setting extends React.Component {
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.componentDidMount= this.componentDidMount.bind(this);
+
     this.state = {
       value: '',
       redirect: false,
@@ -597,13 +600,13 @@ class Setting extends React.Component {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
-              self.setState({ islogin: false });
+              this.setState({ islogin: false });
               return;
           }
        
           if(headers.status == 203) {
               console.log('delete succussful');
-              self.setState({ islogin: true });
+              this.setState({ islogin: true });
               return;
           }
       })
@@ -669,6 +672,8 @@ class User extends React.Component {
     super(props);
     this.fetchuserdelete = this.fetchuserdelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.componentDidMount= this.componentDidMount.bind(this);
+
     this.state = {
       hitss: [],
       redirect: false,
@@ -760,13 +765,13 @@ class User extends React.Component {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
-              self.setState({ islogin: false });
+              this.setState({ islogin: false });
               return;
           }
        
           if(headers.status == 203) {
               console.log('delete succussful');
-              self.setState({ islogin: true });
+              this.setState({ islogin: true });
               return;
           }
       })

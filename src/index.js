@@ -185,7 +185,7 @@ class Home extends React.Component {
     this.state = {
       hits: [],
       redirect: false,
-      isnotlogin:true,
+      isnotlogin:false,
       order:[]
     };
   }
@@ -274,7 +274,7 @@ class Home extends React.Component {
           }
        
           if(headers.status == 203) {
-              console.log('isnotlogin');
+              console.log('login already ');
               this.setState({ isnotlogin: false });
               return;
           }
@@ -291,7 +291,6 @@ class Home extends React.Component {
   render(){
     const { hits } = this.state; 
     const { isnotlogin } = this.state; 
-  
     if(!isnotlogin){
           return (
             <body>
@@ -597,13 +596,13 @@ class Setting extends React.Component {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
-              this.setState({ isnotlogin: false });
+              this.setState({ isnotlogin: true });
               return;
           }
        
           if(headers.status == 203) {
               console.log('isnotlogin');
-              this.setState({ isnotlogin: true });
+              this.setState({ isnotlogin: false });
               return;
           }
       })
@@ -615,7 +614,7 @@ class Setting extends React.Component {
     if (redirect) {
       return <Redirect to='/' />
     }
-    if(isnotlogin){
+    if(!isnotlogin){
     return (
       <div >
          <h1>Edit My profile</h1>
@@ -640,9 +639,9 @@ class Setting extends React.Component {
        </form>
       </div>
     )}
-    else{
+  
       return <Redirect to='/'/>
-    };
+  ;
   }
 }
 class password extends React.Component {
@@ -760,13 +759,13 @@ class User extends React.Component {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
-              this.setState({ isnotlogin: false });
+              this.setState({ isnotlogin: true });
               return;
           }
        
           if(headers.status == 203) {
               console.log('isnotlogin');
-              this.setState({ isnotlogin: true });
+              this.setState({ isnotlogin: false });
               return;
           }
       })
@@ -782,7 +781,7 @@ class User extends React.Component {
   render(){
     const { hitss } = this.state; 
     const { isnotlogin } = this.state; 
-    if(isnotlogin){
+    if(!isnotlogin){
           return (
             <body>
             <form>
@@ -867,9 +866,9 @@ class User extends React.Component {
         </form>
         </body>
           )}
-          else{
+          
             return <Redirect to='/'/>
-          };
+          ;
   }
 }
 ReactDOM.render(

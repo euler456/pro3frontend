@@ -258,14 +258,14 @@ class Home extends React.Component {
    })
    .catch(function(error) {console.log(error)});
      }
-  componentDidMount(islogin) {
+  componentDidMount() {
     fetch('https://ux2backend.herokuapp.com/api/api.php?action=isloggedin',
     {
             method: 'POST',
             credentials: 'include'
         }
         )    
-        .then(function(headers) {
+        .then(headers =>{
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
@@ -586,14 +586,14 @@ class Setting extends React.Component {
   })
   .catch(function(error) {console.log(error)});
   }
-  componentDidMount(islogin) {
+  componentDidMount() {
     fetch('https://ux2backend.herokuapp.com/api/api.php?action=isloggedin',
     {
             method: 'POST',
             credentials: 'include'
         }
         )    
-        .then(function(headers) {
+        .then(headers => {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
@@ -749,14 +749,14 @@ class User extends React.Component {
    })
    .catch(function(error) {console.log(error)});
      }
-  componentDidMount(islogin) {
+  componentDidMount() {
     fetch('https://ux2backend.herokuapp.com/api/api.php?action=isloggedin',
     {
             method: 'POST',
             credentials: 'include'
         }
         )    
-        .then(function(headers) {
+        .then(headers => {
           if(headers.status == 403) {
               console.log('can not login');
               alert("plz login");
